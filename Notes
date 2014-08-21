@@ -1,0 +1,184 @@
+Notes for today: Aug 19th 2014
+Time: 4:46PM
+  Working on a none js project what what!!
+  I am working on getting the filter by tag working for different views.
+  Right now when I click the event the click event fires... but the
+  App.vent.trigger doesn't fire... or if it does its not finding where it needs
+  to go..... need to solve this... asap
+
+
+
+Time: 5:00pm
+  I figured out how to get the views to register and change
+  but I think instead of duplicating I am going to build a function
+  that can be  called from any view... that function will do the heavy
+  lifting... I just need to pass in the view and the filter... it will do
+  the rest :) this will solve a lot of issues when making it a component/tool
+
+
+
+
+Notes for today: Feb 18th 2014
+Time: 11:44
+  I am working on getting two way events between the muster worker list and the
+  the tracked point representing that worker.
+
+  So far I have a simple version of this working for the tracked point click.
+  When you click on a tracked point you have access to that model instance data
+  including worker id which we are using as the primary key. I get that model data then look
+  for that user on the muster worker list. IT has a corresponding worker id that will be the same
+  on both instances
+
+
+  I ended up using a much more backbone way to make a muster worker selected. I created
+  a default option called selected. When you click on the tracked point view it sets the worker
+  to selected: true. This causes the view to re render which thens adds the selected class
+  on the specific view
+
+  I also unset it on the off click of the tracked point
+
+
+
+Notes for today: Oct 10th 2013
+Time: 9:55am
+  I am going to be working on the columnar functionality. This one is a big one.
+  The plan:
+    I need to prelaod 6 'columns' and allow the user to toggle left and right for more columns.
+
+    It would work like this
+
+    [][1,2,3,4][5] -> [1][2,3,4,5][6] -> [1,2][3,4,5,6][7]
+
+    When you get to the end of either site we will making that link unclickable so you have to click the other
+    side to get back to the beginning and vice versa... at the beginning you'll need to click the next, because
+    the previous will be unclickable until there are items to that side.
+
+
+    I'm thinking the best approach will be ajax possibly jquery load and load the needed items. I believe this will be a similar
+    concept to what I used a few years ago with a slide show.
+
+    Container was a certain width and overflow hidden so it hides the hidden elements. Pushing and pulling. THe only difference
+    is I won't need to clone the first and last elements since it will stop when you've reached the top or bottom of the stack.
+
+
+
+
+
+
+
+
+
+Notes for Today: Oct 9th 2013
+
+Oh yeah Rusty is 5 months old today :).
+
+Time: 11:41pm
+  whoa  I haven't been productive today in terms of taking notes.
+  I am going to be working on the baton form updates now.
+
+
+
+Notes for Today: Oct 8th 2013
+
+MORE CACHING ISSUES:
+
+This time it involves baton and changing the order of the form fields... If I leave them as is the tets pass but moving
+the body field above the recipients causes it to fail. I need to check if moving other fields around cause the tests to fail.
+I will do that now....
+IF any of the fields are rearranged the tests fail.... WTF!!!$!!!@#@%#%*@#$@!!
+
+I haven't found any resource on why moving around a field would cause this error
+I've changed orders added the same field twice(caused lots of errors which isn't a bad thing).
+I still have no idea why this simple thing would cause the issues
+
+Time: 11:54am
+  Could it possibly be due to caching? I am going to clear rails cache and see if that helps
+  Well running Rails.cache.clear seems to have hung up the tests. Again why?!?? I have no idea.
+  Its been well over a minute without a single movement from the tests with rails.cache.clear.
+  IT FAILED!!!!! Moving On.
+
+
+Time: 12:11pm
+  Well I think I am onto something. If I check if a baton exists on the page..
+  if there isn't one on the page we build one... is starting to help... but 2 out of three tests
+  are still erroring out. I am going to see what I can do from here.
+
+Time: 12:15pm
+  Well it still doesn't work now all my tests are failing again. I'm not at all sure why. I am
+  100% lost and i've tried everything I can think of. I will most likely bug the guys after lunch. THis
+  is so frustrating to say the least. It works I've watched it work I've manually tested it.
+
+  The other tests work fine even when changing positions of the form.
+
+Time: 2:41pm
+  And were back. I'm going to spend the remaining 55 minutes on this then moving to AoM.
+  The best solution is to stop eating time on this for now. I'm just going to focus on functionality
+  and come back to testing at the end. SHould work faster this way.
+
+rake test TEST=/test
+
+
+Time: 4:35pm
+I think it had to do with a rebase and then conflict I ran into yesterday.... so that sucks 3 hours of being stuck on something
+that was most likely a non issue.
+
+I have got this working in a new branch with all tests passing.... and it took about an hour.
+
+
+Time: 5:38pm
+For whatever reason I lost the git commit with my code making the subject label match the selected baton label... so that's lame.
+I updated the code to set it up working in the new baton form, but not the edit baton form
+All the tests are passing though which is good. I am going to be moving onto Art of Manliness now.
+
+
+
+
+
+Notes for today
+
+Issues with the unread activities branch AGAAIN!!!! The resets unread activities
+when visiting activities page is failing sporadically again! I'm not sure why..
+I had tested 8 times with it passing and now its back to sporadic failing.
+
+Now it passes 2-3 times and fails 2 times. Then repeates in that order.
+
+I need to find out why and get it fixed to 100% passing 100% of the time.
+
+###### Truncate recipients in sent & received #########
+This needs to mimic facebook functionality on likes... after about 3 likes
+it condenses to JOhn, Kate.. and 2 others like this.
+
+The baton will say "To - JOhn, you, and 7 others" or something similar. There are
+a few varying factors here... What happens if you are the baton assignee (the first
+    person being sent a baton)? You must then display something like this....
+"To - You, John and 7 others".  So we need to make sure we show the assignee( the first
+    person being sent the baton) even if its "You" and then one other user again even if it
+is or isn't you.
+
+We then need to make the link clickable to show the rest of the assignees.. How will they
+be displayed? A popover, a dropdown showing them like the hidden form elements?
+
+This last portion I need to either create or add some prexisting javascript to acheive
+whatever UX we go with here.
+
+I will edit(?) the existing decorator for assigness for this area.
+
+
+##### WRITE A BLOG POST about this DAMN TESTING/CACHING BUG #######
+Seriously write a post about it... even if you haven't found a
+solid answer for it write a blog post about it explaining the
+problem and then boom go from there.... who cares if no one reads it
+at least you're writing it and its making you describe the problem
+in a different light.
+
+
+##### IMPORTANT NOTE ############
+I was getting a strange issue about tmp/cache not existing.. for
+the travis builder
+
+I found a link explaining why
+https://github.com/cucumber/cucumber-rails/issues/203
+
+"If I didn't run rails server prior to running cucumber; and I want to clear a cache for every test
+Rails.cache.clear
+I end up with the following error:"
