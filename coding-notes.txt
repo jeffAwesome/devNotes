@@ -1,0 +1,18 @@
+#Notes for today Aug 26th
+  1:21 pm
+    Reverting the calendar back to the original, more traditional view.
+    Changing the markup slightly. Getting a strange error when trying to loop through
+    the events.
+  1:56 pm
+    Still no luck. Made some changes. Decided to look back in the commit changes.
+    I found how the content was being rendered before. THis should fix the problem.
+
+#Notes For today Aug 22nd
+  2:55 am
+    Getting odd assets... the images keep deleting themselves in the public directory.
+    No idea why... but looking into this.. but its stopping development
+
+  3:11 am
+    So the images work but once you restart the app they're deleted... this is very strange.
+    And i'm not sure what the problem is.. its something I will need to talk to jason
+    or time about in the morning. if I can't solve it tonight.
