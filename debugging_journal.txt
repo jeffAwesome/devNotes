@@ -1,0 +1,23 @@
+Notes for today: Nov 17th 2014
+Time: 8:46AM
+  Ran into a strange issue with the forms not working on regonline.com.
+  Doing debugging into the issue.
+
+Time: 10:50AM
+  It looks like this is only happening on the mobile side of things.
+  There is a chance the form never worked on mobile. Getting several undefined
+  issues.
+
+Time: 11:35AM
+
+  It looks like the problem is coming down to the ipjSubmitIronPointForm in the ip-utilities.js file.
+  JsLint is giving me several issues here, but none that would cause the problem of the form not submitting,
+  or at least I don't think so.
+
+
+Time: 2:35PM
+  After quite some time of debugging. I don't think there is anything I can do. It looks like the
+  problem on mobile is occuring based on an asp.net helper function. Its defined outside of anything we can edit.
+
+  Also the error does occur on the desktop version but only when the form validation fails, it still seems to go through.
+
